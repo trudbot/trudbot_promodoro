@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: my-app
+appId: cn.trudbot.app
+productName: trudbot's promodoro
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ asarUnpack:
   - resources/**
 afterSign: build/notarize.js
 win:
-  executableName: my-app
+  executableName: trudbot_promodoro
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -39,4 +39,4 @@ appImage:
 npmRebuild: false
 publish:
   provider: generic
-  url: https://example.com/auto-updates
+  url: https://trudbot.cn/promodoro
