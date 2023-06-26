@@ -7,7 +7,7 @@ img{border:0;vertical-align:middle}
 table{border-collapse:collapse;border-spacing:0}
 p{word-wrap:break-word}
 html, body {
-  background: #f3f3f3;
+  background: #f9f9f9;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -21,6 +21,7 @@ html, body {
   height: 400px;
   /*flex: 1;*/
   margin: 10px;
+  box-shadow: 3px 3px #e1e1e1;
 }
 
 .header {

@@ -1,51 +1,13 @@
 <template>
   <div class="card setting">
-    <el-dialog v-model="editTarget" class="target-selector" :show-close="false" :lock-scroll="true"
-               title="选择每日的目标时间">
-      <div class="dialog-body">
-        <div v-for="option in targetOptions" class="option" @click="data.target = option.value"
-             :class="{selected: option.value === data.target}">
-          {{ option.text }}
-        </div>
-      </div>
-    </el-dialog>
-    <el-dialog v-model="editAlarmMusic" class="music-selector" :show-close="false" :lock-scroll="true"
-               title="提醒音乐设置">
-      <div class="dialog-body">
-        <div class="item">
-          <div id="open-alarm">
-            <div>提醒音乐</div>
-            <el-switch v-model="data.alarm.open"></el-switch>
-          </div>
-        </div>
-        <div class="item">
-          <div id="choose-alarm-type">
-            <div :class="{'music-type-selected': selectType === 'working'}"
-                 @click="selectType = 'working'">番茄结束声音
-            </div>
-            <div :class="{'music-type-selected': selectType === 'break'}"
-                 @click="selectType = 'break'">休息结束声音
-            </div>
-          </div>
-          <div class="music-item" v-for="item in musicList"
-               :class="{selected: data.alarm.music[selectType] === item.name}">
-            <div class="music-option">
-              <div @click="data.alarm.music[selectType] = item.name" class="text">{{ item.text }}</div>
-              <div class="play" @click="playMusic(item.value)">
-                <el-icon :size="30">
-                  <CaretRight/>
-                </el-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </el-dialog>
     <div class="header">
       <el-icon style="line-height: 100px;">
         <Setting/>
       </el-icon>
-      <span>设置</span></div>
+      <span>设置</span>
+    </div>
+
+<!--    设置的主题内容-->
     <div class="setting-list">
       <div class="setting-group">
         <div class="group-header">专注设置</div>
@@ -124,6 +86,53 @@
       </div>
     </div>
   </div>
+
+  <!--    target编辑卡片-->
+  <el-dialog v-model="editTarget" class="target-selector" :show-close="false" :lock-scroll="true"
+             title="选择每日的目标时间">
+    <div class="dialog-body">
+      <div v-for="option in targetOptions" class="option" @click="data.target = option.value"
+           :class="{selected: option.value === data.target}">
+        {{ option.text }}
+      </div>
+    </div>
+  </el-dialog>
+
+  <!--    音乐选择卡片-->
+  <el-dialog v-model="editAlarmMusic" class="music-selector" :show-close="false" :lock-scroll="true"
+             title="提醒音乐设置">
+    <div class="dialog-body">
+      <div class="item">
+        <div id="open-alarm">
+          <div>提醒音乐</div>
+          <el-switch v-model="data.alarm.open"></el-switch>
+        </div>
+      </div>
+      <div class="item">
+        <div id="choose-alarm-type">
+          <div :class="{'music-type-selected': selectType === 'working'}"
+               @click="selectType = 'working'">番茄结束声音
+          </div>
+          <div :class="{'music-type-selected': selectType === 'break'}"
+               @click="selectType = 'break'">休息结束声音
+          </div>
+        </div>
+        <div class="music-item" v-for="item in musicList"
+             :class="{selected: data.alarm.music[selectType] === item.name}">
+          <div class="music-option">
+            <div @click="data.alarm.music[selectType] = item.name" class="text">{{ item.text }}</div>
+            <div class="play" @click="playMusic(item.value)">
+              <el-icon :size="30">
+                <CaretRight/>
+              </el-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </el-dialog>
+
+  <!--  trudbot介绍侧栏-->
   <el-drawer v-model="drawer" :with-header="false" size="50%" class="trudbot-profile">
     <div class="trudbot">
       <div class="avatar">
@@ -132,7 +141,7 @@
       <div class="name-box"><p class="name">@trudbot</p></div>
       <div class="links-box">
         <a class="link" v-for="link in links" :href="link.link" target="_blank">
-          <div class="text">{{link.name}}</div>
+          <div class="text">{{ link.name }}</div>
         </a>
       </div>
     </div>
@@ -146,9 +155,12 @@ import musicList from "../../utils/musicList";
 import avatar from "./../../assets/img/avatar.jpg"
 import {useUserData} from "../../stores/userData";
 import {storeToRefs} from "pinia";
+
 const store = useUserData();
 const {data} = storeToRefs(store);
 const drawer = ref(false);
+
+//控制target选择卡片的开关
 const editTarget = ref(false);
 const targetOptions = [
   {text: '30 分钟', value: 30},
@@ -162,7 +174,9 @@ const targetOptions = [
   {text: '6 小时', value: 360}
 ]
 
+//控制提醒音乐编辑卡片的显示状态
 const editAlarmMusic = ref(false);
+//此时选择的类型
 const selectType = ref("working");
 
 function playMusic(music) {
@@ -314,6 +328,7 @@ const links = [
   .name-box {
     text-align: center;
     margin-top: 20px;
+
     .name {
       margin: 0;
       color: rgb(0, 0, 0);

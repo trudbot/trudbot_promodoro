@@ -24,7 +24,7 @@
         <input-number v-model:num="num" :min="25" :max="120" suffix="分钟" :step="5"></input-number>
       </div>
       <div class="tip" v-if="num < 25">你将没有休息时间.</div>
-      <div class="tip" v-else>你将有{{ Math.floor(num / 5) }}分钟的休息时间</div>
+      <div class="tip" v-else>你将有{{ breakTime}}分钟的休息时间</div>
       <div class="controlArea">
         <el-button class="button" @click="readyToWorking">
           <div>启动新一轮番茄时间</div>
@@ -52,15 +52,17 @@ import {Timer} from "@element-plus/icons-vue";
 import musicList from './../../utils/musicList'
 
 const props = defineProps(['rest', 'alarm']);
-const emit = defineEmits(['newRecord'])
+const emit = defineEmits(['newRecord']);
+//计时器的默认分钟数
 const num = ref(25);
 const title = ref('准备专注');
 const state = ref('ready');
 
-
 const dialogVisible = ref(false);
 const playerText = ref('');
+//Pause闭包函数， 用于暂停音乐
 let Pause;
+
 function play(music, text) {
   playerText.value = text;
   dialogVisible.value = true;
@@ -74,7 +76,9 @@ function play(music, text) {
   }
 }
 
-
+//连续番茄个数
+let count = 0;
+const breakTime = ref(5);
 function readyToWorking() {
   if (new Date().getHours() >= 22) {
     ElMessage({message: "太晚了， 快去休息吧!", type: "warning", title: "注意"});
@@ -85,27 +89,39 @@ function readyToWorking() {
 }
 
 function workingToBreak(record, active) {
+  //开启音乐提醒且非主动结束番茄时
   if (props.alarm.open && !active) {
     play(props.alarm.music.working, "此轮番茄时间已结束!");
   }
+  //实践番茄时间
   const time = Math.floor((record.end.getTime() - record.start.getTime()) / 60000);
+
   if (time <= 20) {
+    //小于20分钟时无效
     ElMessage({message: "专注时间小于20分钟， 本次无效!", title: "注意", type: "warning"});
   } else {
+    //保存记录
     emit('newRecord', [time, record.start.toLocaleTimeString(), record.end.toLocaleTimeString()]);
   }
-  if (!props.rest) {
-    backReady();
-  } else if (time >= 25) {
-    state.value = 'rest';
-    title.value = '休息时段';
-  } else {
+  if (time < 25) {
+    //小于25分钟时无休息时间
     ElMessage({message: "专注时间小于25分钟， 本次无休息时间", title: "注意", type: "warning"});
     backReady();
+  } else {
+    count ++;
+    if (props.rest) {
+      state.value = 'rest';
+      title.value = '休息时段';
+    }
   }
 }
 
 function backReady() {
+  if (count !== 0 && count % 3 === 0) {
+    breakTime.value = 20;
+  } else {
+    breakTime.value = 5;
+  }
   state.value = 'ready';
   title.value = '准备专注';
 }
