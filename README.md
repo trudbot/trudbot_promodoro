@@ -1,10 +1,12 @@
 # trudbot's pomodoro
 
-基于Vue + Element-plus的Electron应用。
+番茄钟软件， 基于electron、vue、element-plus。
 
-## Recommended IDE Setup
+## Preview
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+![image-20230626220936353](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230626220936353.png)
+
+![image-20230626221000628](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230626221000628.png)
 
 ## Project Setup
 
