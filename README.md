@@ -2,11 +2,23 @@
 
 番茄钟软件， 基于electron、vue、element-plus。
 
-## Preview
+## 功能
 
-![image-20230626220936353](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230626220936353.png)
+### 番茄钟
 
-![image-20230626221000628](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230626221000628.png)
+![image-20230629183808144](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230629183808144.png)
+
+### 每日进度
+
+![image-20230629183839588](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230629183839588.png)
+
+### 数据统计
+
+![image-20230629183904341](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230629183904341.png)
+
+### 个性化配置
+
+![image-20230629183925303](https://raw.githubusercontent.com/trudbot/trudbot_images/main/md_img/image-20230629183925303.png)
 
 ## Project Setup
 
