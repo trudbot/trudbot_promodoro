@@ -1,10 +1,9 @@
 import * as echarts from "echarts";
 
-export function useLineChart(box, xlabel, ylabel) {
+export function useLineChart(box) {
   const graph = echarts.init(box);
   graph.setOption({
     xAxis: {
-      name: xlabel,
       type: 'category',
       data: ['2023/6/16', '2023/6/17', '2023/6/18', '2023/6/19', '2023/6/20', '2023/6/21', '2023/6/22'],
       axisLabel: {
@@ -23,19 +22,56 @@ export function useLineChart(box, xlabel, ylabel) {
         }
       }
     },
-    yAxis: {
-      name: ylabel,
-      type: 'value'
+    yAxis: [
+      {
+        type: 'value',
+        axisLine: {
+          //y轴线的颜色以及宽度
+          show: true,
+          lineStyle: {
+            color: "#BDBDBD",
+            width: 1,
+            type: "solid",
+          },
+          axisLabel: {
+            // 设置y轴的文字的样式
+            textStyle: {
+              show: true,
+              color: "#BDBDBD",
+              fontSize: "12",
+            },
+          },
+        }
+      },
+      {
+        type: "value",
+        axisLine: {
+          //y轴线的颜色以及宽度
+          show: true,
+          lineStyle: {
+            color: "#BDBDBD",
+            width: 1,
+            type: "solid",
+          },
+        },
+      }
+    ],
+    legend: {
+      data: ["时长", "次数"],
     },
+    color: ["#ED837C", "#E8D095"],
     series: [
       {
+        name: "时长(min)",
         data: [],
         type: 'line',
         smooth: true
       },
       {
+        name: "次数(次)",
         data: [],
         type: 'line',
+        yAxisIndex: 1,
         smooth: true
       },
     ],

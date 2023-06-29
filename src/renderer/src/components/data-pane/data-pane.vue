@@ -25,7 +25,7 @@ const chartContainer = ref(null);
 const days = ref('7');
 
 onMounted(() => {
-  const {graph} = useLineChart(chartContainer.value, "日期", "时长");
+  const {graph} = useLineChart(chartContainer.value);
   watch([days, lastMonth], () => {
     let day = parseInt(days.value);
     let interval = (() => {
